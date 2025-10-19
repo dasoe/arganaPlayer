@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<logging>1</logging>
+<verbose>1</verbose>
+<logToFile>0</logToFile>
+<debugOnStart>0</debugOnStart>
+<useDay>1</useDay>

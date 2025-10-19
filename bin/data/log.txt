@@ -1,0 +1,11 @@
+
+
+--------------------------------------- 2025-10-19-13-31-10-573
+[notice ] versuche settings.xml zu laden...
+  settings.xml geladen.
+  XML value found. logging set to 1
+  XML value found. verbose set to 1
+  XML value found. logToFile set to 1
+  
+[notice ] XML value found. useDay set to 1
+[notice ] Folder /home/pi/of_v0.10.1_linuxarmv6l_release/apps/myApps/arganaPlayer/bin/data/so DOES NOT EXIST. (As you are using videos depending on weekday, you need one folder per day.)
