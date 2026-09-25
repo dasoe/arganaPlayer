@@ -9,17 +9,12 @@
 //If your app extends ofxOMXPlayerListener you will receive an event when the video ends or loops
 
 
-
-
-
 bool doLoadNextMovie = false;
-
 
 void ofApp::onVideoEnd(ofxOMXPlayer* player)
 {
     ofLog() << "onVideoEnd: " << player->isLoopingEnabled();
     doLoadNextMovie = true;
-
 }
 
 void ofApp::onVideoLoop(ofxOMXPlayer* player)
@@ -44,60 +39,90 @@ void ofApp::setup()
 {		
 	settings.addBoolean("useDay", true);
 	settings.addBoolean("debugOnStart", false);
+	settings.addInt("switchPin", 10);
 	settings.init("settings.xml", true);
 	
-	bool useDay = settings.getBooleanValue( "useDay" );
+	useDay = settings.getBooleanValue( "useDay" );
 	debug = settings.getBooleanValue( "debugOnStart" );
+	switchPin = settings.getIntValue( "switchPin" );
 	    
 	ofBackground(ofColor::black);
 	consoleListener.setup(this);	
 	
-	// define directoryPath (we'll need it in any case, so definition not inside if/else)
-	string directoryPath = ofToDataPath( "general", true);	
-	// overwrite in case
-	if (useDay) {	
-		int weekdayIndex = ofGetWeekday();
-		string weekday[7] = { "so", "mo", "di", "mi", "do", "fr", "sa" };
-		//this will let us just grab a video without recompiling
-		directoryPath = ofToDataPath( weekday[weekdayIndex], true);
-	} 
-    
-	ofDirectory currentVideoDirectory(directoryPath);
-	if (currentVideoDirectory.exists()) 
-	{
-		currentVideoDirectory.listDir();
-		currentVideoDirectory.sort();
-		files = currentVideoDirectory.getFiles();
-		if (files.size()>0) 
-		{
-			videoCounter = 0;
-			playerSettings.videoPath = files[videoCounter].path();
-			playerSettings.useHDMIForAudio = true;	//default true
-			playerSettings.enableLooping = false;		//default true
-			playerSettings.enableTexture = true;		//default true
-			playerSettings.listener = this;			//this app extends ofxOMXPlayerListener so it will receive events ;
-			omxPlayer.setup(playerSettings);
-		}		
-	} else
-    {
-		if (useDay) {
-			ofLogError() << "Folder " << directoryPath << " DOES NOT EXIST. (As you are using videos depending on weekday, you need one folder per day.)";
-			ofExit();
-		} else {
-			ofLogError() << "General Folder (as you are not using videos depending on weekday): " << directoryPath << " DOES NOT EXIST.";
-			ofExit();
-		}
-    }
-			if (debug) {
-				ofShowCursor();
-			} else {
-				ofHideCursor();
-			}    
+	 if (wiringPiSetup() == 1) {
+		ofLogError("Probleme beim Initialisieren von wiringPi. Schalter funktioniert nicht!");
+	 } else {
+		 pinMode( switchPin, INPUT );
+		 pullUpDnControl( switchPin, PUD_UP );
+	 }
+	 getFiles();
+	 doLoadNextMovie = true;
 }
 
+void ofApp::getFiles() 
+{
+		// define directoryPath (we'll need it in any case, so definition not inside if/else)
+		string directoryPath = ofToDataPath( "general", true);	
+		if (state) {
+			// overwrite in case switch is switched (duh!)
+			directoryPath = ofToDataPath( "feiertag", true);	
+		} else {			
+			// overwrite in case weekday shall be used and switch is NOT switched
+			if (useDay) {	
+				int weekdayIndex = ofGetWeekday();
+				string weekday[7] = { "so", "mo", "di", "mi", "do", "fr", "sa" };
+				//this will let us just grab a video without recompiling
+				directoryPath = ofToDataPath( weekday[weekdayIndex], true);
+			} 
+		}
+		
+		ofDirectory currentVideoDirectory(directoryPath);
+		if (currentVideoDirectory.exists()) 
+		{
+			currentVideoDirectory.listDir();
+			currentVideoDirectory.sort();
+			files = currentVideoDirectory.getFiles();
+			if (files.size()>0) 
+			{
+				videoCounter = 0;
+				playerSettings.videoPath = files[videoCounter].path();
+				playerSettings.useHDMIForAudio = true;	//default true
+				playerSettings.enableLooping = false;		//default true
+				playerSettings.enableTexture = true;		//default true
+				playerSettings.listener = this;			//this app extends ofxOMXPlayerListener so it will receive events ;
+				omxPlayer.setup(playerSettings);
+			}		
+		} else
+		{
+			if (useDay) {
+				ofLogError() << "Folder " << directoryPath << " DOES NOT EXIST. (As you are using videos depending on weekday, you need one folder per day.)";
+				ofExit();
+			} else {
+				ofLogError() << "General Folder (as you are not using videos depending on weekday): " << directoryPath << " DOES NOT EXIST.";
+				ofExit();
+			}
+		}
+		
+		if (debug) {
+			ofShowCursor();
+		} else {
+			ofHideCursor();
+		}   
+}
 
 void ofApp::loadNextMovie()
 {
+	if ( digitalRead( switchPin ) == HIGH ) {
+		state = true;
+	} else {
+		state = false;
+	}
+	
+	if ( lastState != state ) {
+		getFiles();
+		lastState = state;
+	}
+	
 	if(videoCounter+1<files.size())
 	{
 		videoCounter++;

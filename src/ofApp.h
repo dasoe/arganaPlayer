@@ -4,13 +4,14 @@
 #include "ofxOMXPlayer.h"
 #include "TerminalListener.h"
 #include "ofxXmlBasedProjectSettings.h"
-
+#include "wiringPi.h"
 
 class ofApp : public ofBaseApp, public ofxOMXPlayerListener, public KeyListener{
 
 	public:
 
 		void setup();
+		void getFiles();
 		void update();
 		void draw();
 	
@@ -30,7 +31,8 @@ class ofApp : public ofBaseApp, public ofxOMXPlayerListener, public KeyListener{
 		ofxOMXPlayerSettings playerSettings;
 	
 		void loadNextMovie();
-		bool debug;
+		bool debug, useDay, state, lastState;
+		int switchPin;
 		
 		ofxXmlBasedProjectSettings settings;
 	
