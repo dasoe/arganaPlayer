@@ -1,17 +1,20 @@
 
 
---------------------------------------- 2026-04-04-17-10-01-183
+--------------------------------------- 2026-09-25-22-01-28-960
 [notice ] versuche settings.xml zu laden...
   settings.xml geladen.
   XML value found. logging set to 1
   XML value found. verbose set to 1
   XML value found. logToFile set to 1
   
+[notice ] XML value found. lastWeekday set to 5
+[notice ] XML value found. menuEndHour set to 15
+[notice ] XML value found. menuStartHour set to 11
 [notice ] XML value found. switchPin set to 10
-[notice ] XML value found. debugOnStart set to 0
+[notice ] XML value found. debugOnStart set to 1
 [notice ] XML value found. useDay set to 1
-[verbose] 	Samstag_lang.mp4
-[verbose] listed 1 files in "/home/pi/of_v0.11.2_linuxarmv6l_release/apps/myApps/arganaPlayer/bin/data/sa/"
+[verbose] 	Fri.mp4
+[verbose] listed 1 files in "/home/pi/of_v0.11.2_linuxarmv6l_release/apps/myApps/arganaPlayer/bin/data/fr/"
 [notice ] didOpenReader: 1
 [notice ] VideoStreamCount(): 1
 [notice ] AudioStreamCount(): 1
@@ -28,12 +31,11 @@
 [notice ] pixels: 1080
 [notice ] dataSize: 8294400
 [notice ] Create EGLImage PASS <---------------- :)
-[notice ] COMXVideo::Open - decoder_component(0x0x11ad048), input_port(0x82), output_port(0x83) deinterlace 1 hdmiclocksync 0
+[notice ] COMXVideo::Open - decoder_component(0x0x3b3240), input_port(0x82), output_port(0x83) deinterlace 1 hdmiclocksync 0
 
 [notice ] settings.initialVolume: 0.3 m_Volume: -2399
 [verbose] virtual void ofApp::update(): doing reload
-[verbose] 	0001-0300.mp4
-[verbose] listed 1 files in "/home/pi/of_v0.11.2_linuxarmv6l_release/apps/myApps/arganaPlayer/bin/data/feiertag/"
+[notice ] LOADING MOVIE/home/pi/of_v0.11.2_linuxarmv6l_release/apps/myApps/arganaPlayer/bin/data/fr/Fri.mp4
 [notice ] EXITING
 [notice ] have a nice day ;)
 
@@ -42,30 +44,7 @@
 [notice ] AudioStreamCount(): 1
 [notice ] CanSeek(): 1
 [notice ] useTexture: 1
-[notice ] COMXVideo::Open - decoder_component(0x0x11b2768), input_port(0x82), output_port(0x83) deinterlace 1 hdmiclocksync 0
-
-[notice ] settings.initialVolume: 0.3 m_Volume: -2399
-[nnotice ] LOADIock.OMXIsPaused(): 1v0.11.2_linuxarmv6l_release/apps/myApps/arganaPlayer/bin/data/feiertag/0001-0300.mp4ync 0
-
-ose set to 1
-  XML
-
-[nnotice ] LOADIock.OMXIsPaused(): 1v0.11.2_linuxarmv6l_release/apps/myApps/arganaPlayer/bin/data/feiertag/0001-0300.mp4ync 0
-
-ose set to 1
-  XML
-
-[notice ] EXITING
-[notice ] RESUMED
-[notice ] COMXPlayer::HandleMessages - player started RESET
-[notice ] have a nice day ;)
-
-[notice ] didOpenReader: 1
-[notice ] VideoStreamCount(): 1
-[notice ] AudioStreamCount(): 1
-[notice ] CanSeek(): 1
-[notice ] useTexture: 1
-[notice ] COMXVideo::Open - decoder_component(0x0x11be0a8), input_port(0x82), output_port(0x83) deinterlace 1 hdmiclocksync 0
+[notice ] COMXVideo::Open - decoder_component(0x0x3b7070), input_port(0x82), output_port(0x83) deinterlace 1 hdmiclocksync 0
 
 [notice ] settings.initialVolume: 0.3 m_Volume: -2399
 [notice ] omxClock.OMXIsPaused(): 1
@@ -86,6 +65,7 @@ ose set to 1
 [notice ] 515 OMX_ErrorNone
 [notice ] 519 OMX_ErrorNone
 [notice ] 526 OMX_ErrorNone
+[notice ] COMXVideo::SubmitEOS
 [verbose] virtual void ofApp::keyPressed(int): key: 27
 [notice ] EXITING
 [notice ] have a nice day ;)

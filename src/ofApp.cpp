@@ -10,6 +10,7 @@
 
 
 bool doLoadNextMovie = false;
+string weekday[7] = { "so", "mo", "di", "mi", "do", "fr", "sa" };
 
 void ofApp::onVideoEnd(ofxOMXPlayer* player)
 {
@@ -40,7 +41,16 @@ void ofApp::setup()
 	settings.addBoolean("useDay", true);
 	settings.addBoolean("debugOnStart", false);
 	settings.addInt("switchPin", 10);
+	settings.addInt("menuStartHour", 11);
+	settings.addInt("menuEndHour", 15 );
+	settings.addInt("lastWeekday", 5);
+
 	settings.init("settings.xml", true);
+	 
+	menuStartHour = settings.getIntValue( "menuStartHour" );
+	menuEndHour = settings.getIntValue( "menuEndHour" );
+
+	lastWeekday = settings.getIntValue( "lastWeekday" );
 	
 	useDay = settings.getBooleanValue( "useDay" );
 	debug = settings.getBooleanValue( "debugOnStart" );
@@ -55,6 +65,8 @@ void ofApp::setup()
 		 pinMode( switchPin, INPUT );
 		 pullUpDnControl( switchPin, PUD_UP );
 	 }
+	 menuState = isMenuTime();
+
 	 getFiles();
 	 doLoadNextMovie = true;
 }
@@ -63,22 +75,34 @@ void ofApp::getFiles()
 {
 		// define directoryPath (we'll need it in any case, so definition not inside if/else)
 		string directoryPath = ofToDataPath( "general", true);	
+		if (menuState) { directoryPath = ofToDataPath( "general/menu", true); }
 		if (state) {
+			// no menu possible. It'S Feiertag
 			// overwrite in case switch is switched (duh!)
 			directoryPath = ofToDataPath( "feiertag", true);	
 		} else {			
 			// overwrite in case weekday shall be used and switch is NOT switched
 			if (useDay) {	
 				int weekdayIndex = ofGetWeekday();
-				string weekday[7] = { "so", "mo", "di", "mi", "do", "fr", "sa" };
-				//this will let us just grab a video without recompiling
-				directoryPath = ofToDataPath( weekday[weekdayIndex], true);
+				if (menuState) { 
+					directoryPath = ofToDataPath( weekday[weekdayIndex]+"/menu", true);
+				} else {
+					//this will let us just grab a video without recompiling
+					directoryPath = ofToDataPath( weekday[weekdayIndex], true);
+				}
 			} 
 		}
 		
 		ofDirectory currentVideoDirectory(directoryPath);
 		if (currentVideoDirectory.exists()) 
 		{
+			currentVideoDirectory.allowExt("mp4");
+			currentVideoDirectory.allowExt("m4v");
+			currentVideoDirectory.allowExt("avi");
+			currentVideoDirectory.allowExt("mkv");
+			currentVideoDirectory.allowExt("mov");
+			currentVideoDirectory.allowExt("ogv");
+			currentVideoDirectory.allowExt("ogm");
 			currentVideoDirectory.listDir();
 			currentVideoDirectory.sort();
 			files = currentVideoDirectory.getFiles();
@@ -108,6 +132,8 @@ void ofApp::getFiles()
 		} else {
 			ofHideCursor();
 		}   
+		
+
 }
 
 void ofApp::loadNextMovie()
@@ -117,11 +143,21 @@ void ofApp::loadNextMovie()
 	} else {
 		state = false;
 	}
+	menuState = isMenuTime();
 	
+	bool trigger = false;
 	if ( lastState != state ) {
-		getFiles();
 		lastState = state;
+		trigger = true;
+	}	
+	if ( lastMenuState != menuState ) {
+		lastMenuState = menuState;
+		trigger = true;
 	}
+	if (trigger) {
+		getFiles();
+	}
+	
 	
 	if(videoCounter+1<files.size())
 	{
@@ -138,6 +174,28 @@ void ofApp::loadNextMovie()
 	totalAmountSkipped+=amountSkipped;
 	doLoadNextMovie = false;
 }
+
+//--------------------------------------------------------------
+bool ofApp::isWeekday(){
+	bool isWeekday = false;
+	if (!state) {
+		if ( ofGetWeekday() > 0 && ofGetWeekday() <= lastWeekday ) {
+			isWeekday = true;
+		}		
+	}		
+	return isWeekday;
+} 	
+
+//--------------------------------------------------------------
+bool ofApp::isMenuTime(){
+	bool isMenuTime = false;
+	if (!state) {
+		if ( ofGetHours() >= menuStartHour && ofGetHours() < menuEndHour ) {
+			isMenuTime = true;
+		}		
+	}		
+	return isMenuTime;
+} 	
 
 //--------------------------------------------------------------
 void ofApp::update()
@@ -181,6 +239,11 @@ void ofApp::draw(){
 		info << "TOTAL MILLIS SKIPPED: " << totalAmountSkipped << endl;
 		info << "CURRENT MOVIE: " << files[videoCounter].path() << endl;
 		info << "PRESS n TO LOAD NEXT MOVIE"<< endl;
+		info << "--------------------------"<< endl;
+		info << "Menu state: "<< menuState << " (last: " << lastMenuState << ")" << endl;
+		info << "Hour: "<< ofGetHours() << endl;
+		info << "Day: "<< ofGetWeekday() << endl;
+		info << "Is Weekday: "<<  isWeekday() << endl;
 		ofDrawBitmapStringHighlight(info.str(), 60, 60, ofColor(ofColor::black, 90), ofColor::yellow);
 	}
 }
