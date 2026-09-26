@@ -1,20 +1,20 @@
 
 
---------------------------------------- 2026-09-25-22-07-13-039
+--------------------------------------- 2026-09-26-09-36-18-076
 [notice ] versuche settings.xml zu laden...
   settings.xml geladen.
   XML value found. logging set to 1
   XML value found. verbose set to 1
   XML value found. logToFile set to 1
   
-[notice ] XML value found. lastWeekday set to 5
-[notice ] XML value found. menuEndHour set to 23
-[notice ] XML value found. menuStartHour set to 22
+[notice ] XML value found. lastWeekday set to 6
+[notice ] XML value found. menuEndHour set to 15
+[notice ] XML value found. menuStartHour set to 9
 [notice ] XML value found. switchPin set to 10
 [notice ] XML value found. debugOnStart set to 1
-[notice ] XML value found. useDay set to 1
-[verbose] 	MenuWeekday.mp4
-[verbose] listed 1 files in "/home/pi/of_v0.11.2_linuxarmv6l_release/apps/myApps/arganaPlayer/bin/data/fr/menu/"
+[notice ] XML value found. useDay set to 0
+[verbose] 	WeekdayNoMenu.mp4
+[verbose] listed 1 files in "/home/pi/of_v0.11.2_linuxarmv6l_release/apps/myApps/arganaPlayer/bin/data/general/"
 [notice ] didOpenReader: 1
 [notice ] VideoStreamCount(): 1
 [notice ] AudioStreamCount(): 1
@@ -31,12 +31,18 @@
 [notice ] pixels: 1080
 [notice ] dataSize: 8294400
 [notice ] Create EGLImage PASS <---------------- :)
-[notice ] COMXVideo::Open - decoder_component(0x0x2235ad8), input_port(0x82), output_port(0x83) deinterlace 1 hdmiclocksync 0
+[notice ] COMXVideo::Open - decoder_component(0x0x1cc3df8), input_port(0x82), output_port(0x83) deinterlace 1 hdmiclocksync 0
 
 [notice ] settings.initialVolume: 0.3 m_Volume: -2399
+[notice ] omxClock.OMXIsPaused(): 1
+[notice ] omxClock.OMXIsPaused(): 1
 [verbose] virtual void ofApp::update(): doing reload
+[notice ] RESUMED
+[notice ] COMXPlayer::HandleMessages - player started RESET
+[notice ] OMXVideo::Decode VDec : setStartTime 0.000000
+
 [verbose] 	MenuWeekday.mp4
-[verbose] listed 1 files in "/home/pi/of_v0.11.2_linuxarmv6l_release/apps/myApps/arganaPlayer/bin/data/fr/menu/"
+[verbose] listed 1 files in "/home/pi/of_v0.11.2_linuxarmv6l_release/apps/myApps/arganaPlayer/bin/data/general/menu/"
 [notice ] EXITING
 [notice ] have a nice day ;)
 
@@ -45,13 +51,12 @@
 [notice ] AudioStreamCount(): 1
 [notice ] CanSeek(): 1
 [notice ] useTexture: 1
-[notice ] COMXVideo::Open - decoder_component(0x0x222f2e8), input_port(0x82), output_port(0x83) deinterlace 1 hdmiclocksync 0
+[notice ] COMXVideo::Open - decoder_component(0x0x1cc05d0), input_port(0x82), output_port(0x83) deinterlace 1 hdmiclocksync 0
 
 [notice ] settings.initialVolume: 0.3 m_Volume: -2399
-[nnotice ] LOADIock.OMXIsPaused(): 1v0.11.2_linuxarmv6l_release/apps/myApps/arganaPlayer/bin/data/fr/menu/MenuWeekday.mp4
-
-[nnotice ] LOADIock.OMXIsPaused(): 1v0.11.2_linuxarmv6l_release/apps/myApps/arganaPlayer/bin/data/fr/menu/MenuWeekday.mp4
-
+[notice ] omxClock.OMXIsPaused(): 1
+[notice ] omxClock.OMXIsPaused(): 1
+[notice ] LOADING MOVIE/home/pi/of_v0.11.2_linuxarmv6l_release/apps/myApps/arganaPlayer/bin/data/general/menu/MenuWeekday.mp4
 [notice ] EXITING
 [notice ] RESUMED
 [notice ] COMXPlayer::HandleMessages - player started RESET
@@ -62,7 +67,7 @@
 [notice ] AudioStreamCount(): 1
 [notice ] CanSeek(): 1
 [notice ] useTexture: 1
-[notice ] COMXVideo::Open - decoder_component(0x0x222ec90), input_port(0x82), output_port(0x83) deinterlace 1 hdmiclocksync 0
+[notice ] COMXVideo::Open - decoder_component(0x0x1cc2fa0), input_port(0x82), output_port(0x83) deinterlace 1 hdmiclocksync 0
 
 [notice ] settings.initialVolume: 0.3 m_Volume: -2399
 [notice ] omxClock.OMXIsPaused(): 1
@@ -88,8 +93,7 @@
 [notice ] REACHED END OF STREAM
 [notice ] onVideoEnd: 0
 [verbose] virtual void ofApp::update(): doing reload
-[verbose] 	Holi-day.mp4
-[verbose] listed 1 files in "/home/pi/of_v0.11.2_linuxarmv6l_release/apps/myApps/arganaPlayer/bin/data/feiertag/"
+[notice ] LOADING MOVIE/home/pi/of_v0.11.2_linuxarmv6l_release/apps/myApps/arganaPlayer/bin/data/general/menu/MenuWeekday.mp4
 [notice ] EXITING
 [notice ] have a nice day ;)
 
@@ -98,22 +102,7 @@
 [notice ] AudioStreamCount(): 1
 [notice ] CanSeek(): 1
 [notice ] useTexture: 1
-[notice ] COMXVideo::Open - decoder_component(0x0x22347a8), input_port(0x82), output_port(0x83) deinterlace 1 hdmiclocksync 0
-
-[notice ] settings.initialVolume: 0.3 m_Volume: -2399
-[nnotice  settin] LOxClock.OMXIsPaused(): 1v0.11.2_linuxarmv6l_release/apps/myApps/arganaPlayer/bin/data/feiertag/Holi-day.mp4
- [nnotice  settin] LOxClock.OMXIsPaused(): 1v0.11.2_linuxarmv6l_release/apps/myApps/arganaPlayer/bin/data/feiertag/Holi-day.mp4
- [notice ] EXITING
-[notice ] RESUMED
-[notice ] COMXPlayer::HandleMessages - player started RESET
-[notice ] have a nice day ;)
-
-[notice ] didOpenReader: 1
-[notice ] VideoStreamCount(): 1
-[notice ] AudioStreamCount(): 1
-[notice ] CanSeek(): 1
-[notice ] useTexture: 1
-[notice ] COMXVideo::Open - decoder_component(0x0x222e660), input_port(0x82), output_port(0x83) deinterlace 1 hdmiclocksync 0
+[notice ] COMXVideo::Open - decoder_component(0x0x1cbde78), input_port(0x82), output_port(0x83) deinterlace 1 hdmiclocksync 0
 
 [notice ] settings.initialVolume: 0.3 m_Volume: -2399
 [notice ] omxClock.OMXIsPaused(): 1
@@ -135,7 +124,41 @@
 [notice ] 519 OMX_ErrorNone
 [notice ] 526 OMX_ErrorNone
 [notice ] COMXVideo::SubmitEOS
-[verbose] virtual void ofApp::keyPressed(int): key: 27
+[notice ] COMXVideo::IsEOS
+[notice ] REACHED END OF STREAM
+[notice ] onVideoEnd: 0
+[verbose] virtual void ofApp::update(): doing reload
+[notice ] LOADING MOVIE/home/pi/of_v0.11.2_linuxarmv6l_release/apps/myApps/arganaPlayer/bin/data/general/menu/MenuWeekday.mp4
+[notice ] EXITING
+[notice ] have a nice day ;)
+
+[notice ] didOpenReader: 1
+[notice ] VideoStreamCount(): 1
+[notice ] AudioStreamCount(): 1
+[notice ] CanSeek(): 1
+[notice ] useTexture: 1
+[notice ] COMXVideo::Open - decoder_component(0x0x1cf0a00), input_port(0x82), output_port(0x83) deinterlace 1 hdmiclocksync 0
+
+[notice ] settings.initialVolume: 0.3 m_Volume: -2399
+[notice ] omxClock.OMXIsPaused(): 1
+[notice ] RESUMED
+[notice ] COMXPlayer::HandleMessages - player started RESET
+[notice ] OMXVideo::Decode VDec : setStartTime 0.000000
+
+[notice ] 292 OMX_ErrorNone
+[notice ] 299 OMX_ErrorNone
+[notice ] COMXVideo::PortSettingsChangedLogger - 1920x1080@24.00 interlace:0 deinterlace:0 anaglyph:0 par:inf display:0 layer:0 alpha:255 aspectMode:0
+[notice ] 467 OMX_ErrorNone
+[notice ] 470 OMX_ErrorNone
+[notice ] 479 OMX_ErrorNone
+[notice ] 485 OMX_ErrorNone
+[notice ] 490 OMX_ErrorNone
+[notice ] 496 OMX_ErrorNone
+[notice ] 502 OMX_ErrorNone
+[notice ] 515 OMX_ErrorNone
+[notice ] 519 OMX_ErrorNone
+[notice ] 526 OMX_ErrorNone
+[notice ] COMXVideo::SubmitEOS
 [verbose] virtual void ofApp::keyPressed(int): key: 27
 [notice ] EXITING
 [notice ] have a nice day ;)

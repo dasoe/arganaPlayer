@@ -65,7 +65,6 @@ void ofApp::setup()
 		 pinMode( switchPin, INPUT );
 		 pullUpDnControl( switchPin, PUD_UP );
 	 }
-	 menuState = isMenuTime();
 
 	 getFiles();
 	 doLoadNextMovie = true;

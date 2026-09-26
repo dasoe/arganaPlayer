@@ -3,8 +3,8 @@
 <verbose>1</verbose>
 <logToFile>1</logToFile>
 <debugOnStart>1</debugOnStart>
-<useDay>1</useDay>
+<useDay>0</useDay>
 <switchPin>10</switchPin>
-<lastWeekday>5</lastWeekday>
-<menuStartHour>11</menuStartHour>
+<lastWeekday>6</lastWeekday>
+<menuStartHour>9</menuStartHour>
 <menuEndHour>15</menuEndHour>
