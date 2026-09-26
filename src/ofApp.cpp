@@ -189,7 +189,7 @@ bool ofApp::isWeekday(){
 //--------------------------------------------------------------
 bool ofApp::isMenuTime(){
 	bool isMenuTime = false;
-	if (!state) {
+	if (!state && isWeekday()) {
 		if ( ofGetHours() >= menuStartHour && ofGetHours() < menuEndHour ) {
 			isMenuTime = true;
 		}		
