@@ -16,6 +16,7 @@ class ofApp : public ofBaseApp, public ofxOMXPlayerListener, public KeyListener{
 		void draw();
 		bool isWeekday();
 		bool isMenuTime();
+		int getWeekday();
 	
 		void keyPressed(int key);
 		ofxOMXPlayer omxPlayer;
@@ -31,10 +32,12 @@ class ofApp : public ofBaseApp, public ofxOMXPlayerListener, public KeyListener{
 		TerminalListener consoleListener;
 		ofxOMXPlayerSettings playerSettings;
 		
-		int hour, menuStartHour, menuEndHour, lastWeekday;
+		long actualTime, bufferTime;
+		
+		int hour, menuStartHour, menuEndHour, lastWeekday, overwriteWithDay;
 	
 		void loadNextMovie();
-		bool debug, useDay, state, lastState, menuState, lastMenuState;
+		bool debug, useDay, state, lastState, menuState, lastMenuState, overwriteDayFlag;
 		int switchPin;
 		
 		ofxXmlBasedProjectSettings settings;

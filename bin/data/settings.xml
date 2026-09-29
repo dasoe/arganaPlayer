@@ -8,3 +8,5 @@
 <lastWeekday>6</lastWeekday>
 <menuStartHour>9</menuStartHour>
 <menuEndHour>15</menuEndHour>
+<overwriteDayFlag>1</overwriteDayFlag>
+<overwriteWithDay>0</overwriteWithDay>

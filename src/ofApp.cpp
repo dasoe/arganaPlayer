@@ -44,11 +44,18 @@ void ofApp::setup()
 	settings.addInt("menuStartHour", 11);
 	settings.addInt("menuEndHour", 15 );
 	settings.addInt("lastWeekday", 5);
-
+	settings.addBoolean("overwriteDayFlag", false);
+	settings.addInt("overwriteWithDay", 0);
+	
 	settings.init("settings.xml", true);
 	 
 	menuStartHour = settings.getIntValue( "menuStartHour" );
 	menuEndHour = settings.getIntValue( "menuEndHour" );
+
+
+	overwriteDayFlag = settings.getBooleanValue( "overwriteDayFlag" );
+	overwriteWithDay = settings.getIntValue( "overwriteWithDay" );
+
 
 	lastWeekday = settings.getIntValue( "lastWeekday" );
 	
@@ -70,19 +77,29 @@ void ofApp::setup()
 	 doLoadNextMovie = true;
 }
 
+int ofApp::getWeekday() {
+		
+	if ( overwriteDayFlag ) {
+		return overwriteWithDay;
+	}
+	
+	return ofGetWeekday();
+} 
+
+
 void ofApp::getFiles() 
 {
 		// define directoryPath (we'll need it in any case, so definition not inside if/else)
 		string directoryPath = ofToDataPath( "general", true);	
 		if (menuState) { directoryPath = ofToDataPath( "general/menu", true); }
-		if (state) {
+		if (state || !isWeekday()) {
 			// no menu possible. It'S Feiertag
 			// overwrite in case switch is switched (duh!)
 			directoryPath = ofToDataPath( "feiertag", true);	
 		} else {			
 			// overwrite in case weekday shall be used and switch is NOT switched
 			if (useDay) {	
-				int weekdayIndex = ofGetWeekday();
+				int weekdayIndex = getWeekday();
 				if (menuState) { 
 					directoryPath = ofToDataPath( weekday[weekdayIndex]+"/menu", true);
 				} else {
@@ -178,7 +195,7 @@ void ofApp::loadNextMovie()
 bool ofApp::isWeekday(){
 	bool isWeekday = false;
 	if (!state) {
-		if ( ofGetWeekday() > 0 && ofGetWeekday() <= lastWeekday ) {
+		if ( getWeekday() > 0 && getWeekday() <= lastWeekday ) {
 			isWeekday = true;
 		}		
 	}		
@@ -199,6 +216,8 @@ bool ofApp::isMenuTime(){
 //--------------------------------------------------------------
 void ofApp::update()
 {
+	actualTime = ofGetElapsedTimeMillis();
+
 	if (doLoadNextMovie) 
 	{
 		ofLogVerbose(__func__) << "doing reload";
@@ -241,7 +260,7 @@ void ofApp::draw(){
 		info << "--------------------------"<< endl;
 		info << "Menu state: "<< menuState << " (last: " << lastMenuState << ")" << endl;
 		info << "Hour: "<< ofGetHours() << endl;
-		info << "Day: "<< ofGetWeekday() << endl;
+		info << "Day: "<< getWeekday() << endl;
 		info << "Is Weekday: "<<  isWeekday() << endl;
 		ofDrawBitmapStringHighlight(info.str(), 60, 60, ofColor(ofColor::black, 90), ofColor::yellow);
 	}
@@ -260,7 +279,10 @@ void ofApp::keyPressed  (int key){
 		}
 		case 'd':
 		{
-			debug = !debug;
+			if ( actualTime - bufferTime > 500  ) {				
+				debug = !debug;
+				bufferTime = ofGetElapsedTimeMillis();
+			}
 			if (debug) {
 				ofShowCursor();
 			} else {
